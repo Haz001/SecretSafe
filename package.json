@@ -1,0 +1,16 @@
+{
+  "name": "SecretSafe",
+  "version": "1.0.0",
+  "description": "File Encryptor",
+  "main": "main.js",
+  "scripts":{
+    "start":"electron ."
+
+  },
+  "repository": "https://github.com/Haz001/SecretSafe.git",
+  "author": "Harry <master@hazonline.co.uk>",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^7.1.2"
+  }
+}
