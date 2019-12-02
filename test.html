@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Test</title>
+    </head>
+    <body>
+        Message:<br/>
+        <input type="text" id="msg" value=""/><br/>
+        Key, Salt:<br/>
+        <input type="text" id="key" value=""/><input type="text" id="salt" value=""/><br/>
+
+        <input type="button"  onclick="crypt()" name="" value="Crypt"><br/>
+        Crypted:<br/>
+        <input type="text" id="out" value=""/><br/>
+
+    </body>
+</html>
+<script src="crypt.js" charset="utf-8"></script>
+<script type="text/javascript">
+function crypt(){
+    var key = hashText(document.getElementById('key').value,document.getElementById('salt').value);
+    var msg = text2bin(document.getElementById('msg').value);
+    console.log(key)
+    console.log(msg)
+    var crypt = (xor(msg,key));
+    console.log(crypt)
+    var out = bin2text(crypt);
+    console.log(out)
+    document.getElementById('out').value = out;
+}
+</script>
