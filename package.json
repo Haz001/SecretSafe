@@ -4,7 +4,8 @@
   "description": "File Encryptor",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "test": "echo 'no test'"
   },
   "repository": "https://github.com/Haz001/SecretSafe.git",
   "author": "Harry <master@hazonline.co.uk>",
