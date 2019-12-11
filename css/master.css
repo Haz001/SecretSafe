@@ -1,0 +1,64 @@
+.logBox{
+    margin-left: auto;
+    margin-right: auto;
+    width:500px;
+    display: block;
+    border-style:solid;
+    border-radius: 25px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 30px;
+
+}
+*:focus, *:focus{
+    outline: none;
+}
+.logBox button{
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    display: block;
+    background: #c8c8c8;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #c8c8c8;
+}
+.logBox button{
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    display: block;
+    background: #aaa;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #aaa;
+    transition: border-color 0.5s, background 0.5s;
+}
+.logBox button:hover{
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    display: block;
+    background: #00f8f8;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #00f8f8;
+}
+.logBox input{
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    display: block;
+    padding: 10px;
+    border-color: #aaaaaa;
+
+    border-style: none none solid none;
+    transition: border-color 1s;
+}
+.logBox input:hover{
+    border-color: #00f8f8;
+    border-style: none none solid none;
+}
+.logBox input:focus{
+    border-color: #00f8f8;
+}

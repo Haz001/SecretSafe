@@ -1,1 +1,36 @@
-<a href="test.html">test page</a>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Login</title>
+        <link rel="stylesheet" href="css/master.css">
+    </head>
+    <body>
+        <div class="logBox">
+        <h1>SecterSafe</h1>
+        Welcome<br/>
+        <output name="result">User</output><br/>
+        Password:<br/>
+        <input type="password" placeholder="Password..." id="password" value="">
+        <br/>
+        <button onclick="login_btn()" type="button" name="button">Login</button>
+        </div>
+        <a href="test.html">test page</a>
+    </body>
+    <script src="encrypter.js" charset="utf-8"></script>
+    <script  type="text/javascript">
+        var os = require('os');
+        var loginId = os.userInfo().username;
+        document.getElementsByName('result')[0].value = loginId;
+        function login_btn(){
+            var password = document.getElementById("password").value;
+
+            var result = login(password);
+
+            if(result == true){
+                window.location = "main.html"
+            }
+        }
+    </script>
+</html>

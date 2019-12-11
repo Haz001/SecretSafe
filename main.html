@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+            textarea{
+                width:600px;
+                height:300px;
+            }
+        </style>
+        <script src="encrypter.js" charset="utf-8"></script>
+        <script type="text/javascript">
+            var keyt = new keytransfer();
+            var key = keyt.get();
+
+            var files = new filestream("notes.txt",{"key":key});
+            function save(){
+                files.write(document.getElementById("notes").value)
+
+            }
+            function load(){
+                var data =  files.read();
+
+                if(data != null){
+                document.getElementById("notes").value = data;
+                }else{
+                    console.log(data)
+                }
+            }
+
+
+        </script>
+    </head>
+    <body onload="load()">
+        <h1>My Secret Notes</h1>
+        <input type="button" onclick="save()" name="" value="Save"><input type="button" onclick="load()" value="Load"><br/>
+        <textarea placeholder="type" id="notes"></textarea><br>
+        <p>Unicode Incompatible at the moment, only works with ascii.</p>
+    </body>
+
+</html>

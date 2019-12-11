@@ -4,30 +4,36 @@
     <head>
         <meta charset="utf-8">
         <title>Test</title>
+        <style>
+            input{
+                width: 100%;
+            }
+        </style>
     </head>
     <body>
         Message:<br/>
         <input type="text" id="msg" value=""/><br/>
         Key, Salt:<br/>
-        <input type="text" id="key" value=""/><input type="text" id="salt" value=""/><br/>
+        <input type="password" id="key" value=""/><input type="password" id="salt" value=""/><br/>
 
         <input type="button"  onclick="crypt()" name="" value="Crypt"><br/>
         Crypted:<br/>
         <input type="text" id="out" value=""/><br/>
-
+        <input type="text" id="out2" value=""/><br/>
     </body>
 </html>
-<script src="crypt.js" charset="utf-8"></script>
+<script src="encrypter.js" charset="utf-8"></script>
 <script type="text/javascript">
+var crypta = new crypter();
+var hasher = new hash(0,"pwd",0);
 function crypt(){
-    var key = hashText(document.getElementById('key').value,document.getElementById('salt').value);
-    var msg = text2bin(document.getElementById('msg').value);
-    console.log(key)
-    console.log(msg)
-    var crypt = (xor(msg,key));
-    console.log(crypt)
-    var out = bin2text(crypt);
-    console.log(out)
-    document.getElementById('out').value = out;
+    hasher = new hash(0,document.getElementById('key').value,0);
+    var key = hasher.key;
+    var msg = (document.getElementById('msg').value);
+    var data = crypta.uniCrypt(msg,key);
+    console.log(data)
+    document.getElementById('out').value = data;
+    document.getElementById('out2').value = crypta.uniCrypt(data,key);
 }
+
 </script>

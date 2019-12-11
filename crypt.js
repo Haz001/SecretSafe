@@ -37,12 +37,16 @@ function bin2text(binarry){
     }
     return final;
 }
-function hashText(text,salt){
-    var shaObj = new jsSHA("SHA-512", "TEXT");
-    shaObj.update(salt);
-    shaObj.update(text);
-    shaObj.update(salt);
-    var hexHash = shaObj.getHash("HEX");
+function hashText(text,salt,times){
+    var thash = text;
+    for (var i = 0; i < times;i++){
+        var shaObj = new jsSHA("SHA-512", "TEXT");
+        shaObj.update(salt);
+        shaObj.update(text);
+        shaObj.update(salt);
+        var hexHash = shaObj.getHash("HEX");
+        thash = hexHash.toString();
+    }
     var binHash = new Array();
     for(var i = 0;i < hexHash.length; i++){
         x = (parseInt(hexHash[i].toString(), 16)).toString(2);
