@@ -4,6 +4,7 @@ The xor 512 bit encrypted notepad for now.
 ## Pros:
 - Uses XOR encryption with a 512 bit key
 - Uses SHA3-512 to hash password to create key
+- Imposible to crack if smaller than 512 bits (73 characters)
 ## Cons:
 - Password is not salted and is only hashed once
 - Can only take notes
