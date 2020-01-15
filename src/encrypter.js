@@ -6,7 +6,7 @@ class converter{
         if(unibytelength != null){
             this.unibytelength = unibytelength;
         }else{
-            this.unibytelength = 7;
+            this.unibytelength = 32;
         }
     }
     unicharToBool(char){
@@ -32,6 +32,7 @@ class converter{
             result = result.concat(this.unicharToBool(str[i]));
         }
 
+
         return result;
 
     }
@@ -51,6 +52,52 @@ class converter{
             codepointsAsNumbers.push( parseInt(codepointBits.join(''),2) );
         }
         return String.fromCharCode.apply(this,codepointsAsNumbers);
+    }
+    boolToHex(bools){
+        var binlst = new Array();
+        var hexy = new String();
+        var hexylst = new String();
+        var count = 0;
+        for (var i = 0; i < bools.length;i++){
+
+            if (bools[i] == false){
+                binlst.push("0");
+                hexy+="0"
+            }else{
+                binlst.push("1");
+                hexy+="1"
+            }
+            count += 1;
+            if (count ==  this.unibytelength){
+                count = 0;
+                hexylst+=(parseInt(hexy,2)).toString(16)+"|";
+                hexy = new String();
+
+            }
+
+        }
+        return hexylst;
+    }
+    hexToBool(hexy){
+        var x = hexy.split("|");
+        var binlist = new String();
+        for(var i = 0; i < x.length;i++){
+            //console.log()
+            if(x[i] != ""){
+                var y = (parseInt(x[i],16)).toString(2)
+                binlist+="0".repeat(this.unibytelength - y.length)+y
+            }
+        }
+
+        var boollst = new Array();
+        for(var i = 0; i < binlist.length;i++){
+            if (binlist[i]=="0"){
+                boollst.push(false);
+            }else if (binlist[i]=="1"){
+                boollst.push(true);
+            }
+        }
+        return boollst;
     }
 
 }
@@ -111,9 +158,23 @@ class crypter{
     }
 
 
-    uniCrypt(msg,key){
-        var x =  this.xor(this.conv.uniToBool(msg),key);
-        return this.conv.boolToUni(x);
+    uniCrypt(to,msg,key,back){
+        if(to == null){
+            var x =  this.xor(this.conv.uniToBool(msg),key);
+        }else if(to == 0){
+            var x =  this.xor(this.conv.uniToBool(msg),key);
+        }else if(to == 1){
+            var x =  this.xor(this.conv.hexToBool(msg),key);
+        }
+        if(back == null){
+            return this.conv.boolToUni(x);
+        }else if (back == 1) {
+
+            return this.conv.boolToHex(x);
+        }else if (back == 0) {
+
+            return this.conv.boolToUni(x);
+        }
     }
 }
 class filestream{
@@ -141,15 +202,15 @@ class filestream{
         var cryptography = new crypter();
         console.log('received data: ' + xdata);
         console.log('received data: ' + xdata);
-        text = cryptography.uniCrypt(xdata,key);
+        text = cryptography.uniCrypt(1,xdata,key,0);
         return text;
 
     }
     write(text){
 
-        var data = this.crypt.uniCrypt(text,this.key);
+        var data = this.crypt.uniCrypt(0,text,this.key,1);
         console.log(text+" -> "+data);
-        console.log(this.crypt.uniCrypt(data,this.key))
+        console.log(this.crypt.uniCrypt(0,data,this.key,1))
         fs.writeFile(this.path,data, function(err) {
             if(err) {
                 return console.log(err);

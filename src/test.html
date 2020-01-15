@@ -11,7 +11,7 @@
         </style>
     </head>
     <body>
-        Message:<br/>
+        <!--Message:<br/>
         <input type="text" id="msg" value=""/><br/>
         Key, Salt:<br/>
         <input type="password" id="key" value=""/><input type="password" id="salt" value=""/><br/>
@@ -19,11 +19,15 @@
         <input type="button"  onclick="crypt()" name="" value="Crypt"><br/>
         Crypted:<br/>
         <input type="text" id="out" value=""/><br/>
-        <input type="text" id="out2" value=""/><br/>
+        <input type="text" id="out2" value=""/><br/>-->
+        <webview id="foo" src="https://www.duckduckgo.com/" style="display:inline-flex; width:640px; height:480px"></webview>
+        <iframe src="https://duckduckgo.com/search.html?kn=1&prefill=Search DuckDuckGo" style="overflow:hidden;margin:0;padding:0;width:408px;height:40px;" frameborder="0"></iframe>
     </body>
 </html>
-<script src="encrypter.js" charset="utf-8"></script>
-<script type="text/javascript">
+<script>
+
+</script>
+<!--<script type="text/javascript">
 var crypta = new crypter();
 var hasher = new hash(0,"pwd",0);
 function crypt(){
@@ -37,3 +41,4 @@ function crypt(){
 }
 
 </script>
+-->

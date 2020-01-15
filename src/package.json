@@ -1,17 +1,37 @@
 {
-  "name": "SecretSafe",
-  "version": "1.0.0",
-  "description": "File Encryptor",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "test": "echo 'no test'"
-  },
-  "repository": "https://github.com/Haz001/SecretSafe.git",
-  "author": "Harry <master@hazonline.co.uk>",
-  "license": "MIT",
-  "dependencies": {
-    "electron": "^7.1.2",
-    "jssha": "^2.3.1"
-  }
+    "name": "SecretSafe",
+    "version": "1.0.0",
+    "description": "File Encryptor",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "build": "electron-builder",
+        "buildwin":"electron-builder --win"
+    },
+    "build": {
+        "appId": "com.secretsafe.app",
+        "linux": {
+            "category": "Utilities"
+        },
+        "snap": {
+            "confinement": "strict",
+            "summary": "A encryptor",
+            "grade": "stable",
+            "category": "Utilities"
+        },
+        "win": {
+            "target": "nsis-web"
+        }
+    },
+    "repository": "https://github.com/Haz001/SecretSafe.git",
+    "author": "Harry <master@hazonline.co.uk>",
+    "license": "MIT",
+    "devDependencies":{
+        "electron": "^7.1.2",
+        "electron-builder": "^21.2.0"
+    },
+    "dependencies": {
+
+        "jssha": "^2.3.1"
+    }
 }
