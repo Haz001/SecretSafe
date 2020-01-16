@@ -70,7 +70,7 @@ class converter{
             count += 1;
             if (count ==  this.unibytelength){
                 count = 0;
-                hexylst+=(parseInt(hexy,2)).toString(16)+"|";
+                hexylst+=(parseInt(hexy,2)).toString(36)+" ";
                 hexy = new String();
 
             }
@@ -79,12 +79,12 @@ class converter{
         return hexylst;
     }
     hexToBool(hexy){
-        var x = hexy.split("|");
+        var x = hexy.split(" ");
         var binlist = new String();
         for(var i = 0; i < x.length;i++){
             //console.log()
             if(x[i] != ""){
-                var y = (parseInt(x[i],16)).toString(2)
+                var y = (parseInt(x[i],36)).toString(2)
                 binlist+="0".repeat(this.unibytelength - y.length)+y
             }
         }
@@ -130,16 +130,21 @@ class hash{
         }
         return binHash;
     }
-    constructor(past,pass,type,other) {
-        if(past == 0){
-                if (type == 0){
-                this.key = this.hash(pass,"",1);
-                this.hashed = this.hash(pass,"",2);
-            }
+    constructor(pass,type,other) {
+        console.log(type)
+        if (type == 0){
+            this.key = this.hash(pass,"",1);
+            this.hashed = this.hash(pass,"",2);
+        }else if (type == 1){
+
+            var salt = other["salt"]
+            var times = parseInt(other["times"])
+            console.log("salt: "+salt+"\ntimes:"+times.toString())
+            this.key = this.hash(pass,salt,times)
+            this.key = this.hash(pass,salt,times*10)
         }
+
     }
-
-
 }
 class crypter{
     constructor(){
@@ -156,8 +161,6 @@ class crypter{
         }
         return final;
     }
-
-
     uniCrypt(to,msg,key,back){
         if(to == null){
             var x =  this.xor(this.conv.uniToBool(msg),key);
@@ -169,10 +172,8 @@ class crypter{
         if(back == null){
             return this.conv.boolToUni(x);
         }else if (back == 1) {
-
             return this.conv.boolToHex(x);
         }else if (back == 0) {
-
             return this.conv.boolToUni(x);
         }
     }
@@ -183,40 +184,35 @@ class filestream{
         this.crypt = new crypter();
         if(other["key"] != null){
             this.key = other["key"];
-            console.log("key: "+other["key"])
+            //console.log("key: "+other["key"])
         }else if(other["password"] != null){
-            console.log("password: "+other["password"])
-            var h = new hash(0,other["password"],0);
-            console.log("key: "+h.key.toString())
+            //console.log("password: "+other["password"])
+            var h = new hash(other["password"],0);
+            //console.log("key: "+h.key.toString())
             this.key = h.key;
         }
-
-
     }
-
     read(){
         var text = "";
         var xdata = "";
         var key = this.key;
-        xdata = fs.readFileSync(this.path,{ encoding: 'utf-8' });
+        xdata = fs.readFileSync(this.path,{ encoding: 'ascii' });
         var cryptography = new crypter();
-        console.log('received data: ' + xdata);
-        console.log('received data: ' + xdata);
+        //console.log('received data: ' + xdata);
+        //console.log('received data: ' + xdata);
         text = cryptography.uniCrypt(1,xdata,key,0);
         return text;
 
     }
     write(text){
-
         var data = this.crypt.uniCrypt(0,text,this.key,1);
-        console.log(text+" -> "+data);
-        console.log(this.crypt.uniCrypt(0,data,this.key,1))
+        //console.log(text+" -> "+data);
+        //console.log(this.crypt.uniCrypt(0,data,this.key,1))
         fs.writeFile(this.path,data, function(err) {
             if(err) {
                 return console.log(err);
             }
-
-            console.log("The file was saved!");
+            //console.log("The file was saved!");
         });
     }
 
@@ -240,13 +236,34 @@ class keytransfer{
         return result;
     }
 }
-
 function login(password){
-    var x = new hash(0,password,0)
-    console.log(x.key)
+    var x = keymake(password)
+    console.log(x)
+    
     var keyt = new keytransfer();
-    keyt.set( x.key);
+    keyt.set( x);
     //console.log("done: "+hash)
     return true;
+}
+function keymake(password){
+    var salts = "";
+    salts = fs.readFileSync("salts",{ encoding: 'ascii' });
+    var saltlst = salts.split(" ")
+    var key = new Array();
+    var h = new hash(password,0)
+    for (var i = 0; i < saltlst.length;i++){
+
+        if(i%2 == 0){
+
+            h = new hash(password,1,{"salt":saltlst[i],"times":10});
+
+        }else{
+            h = new hash(password,1,{"salt":saltlst[i],"times":10});
+        }
+        key = key.concat(h.key)
+
+    }
+    return key;
+
 
 }
