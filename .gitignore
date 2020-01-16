@@ -90,3 +90,5 @@ typings/
 notes.txt
 
 src/dist/
+
+src/unicode.txt

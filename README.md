@@ -1,18 +1,19 @@
 SecretSafe
-The xor 512 bit encrypted notepad for now.
+The xor 32768 bit encrypted notepad for now.
 
 # Secret Safe
 
 ## Pros:
-- Uses XOR encryption with a 512 bit key
+- Uses XOR encryption with a 32768 bit key
 - Uses SHA3-512 to hash password to create key
-- Imposible to crack if smaller than 512 bits (16 characters)
+- Imposible to crack if smaller than 32768 bits (1024 characters)
 
 ## Cons:
 - Password is not salted and is only hashed once
+- Large save files, save files can be 1.5 to 6 times larger than unencrypted couterpart
 - Can only take notes
 - No password check
-- Can be cracked if charater length is a large multiple of 16.
+- Can be cracked if charater length is a large multiple of 1024.
 
 # How to setup
 Install either `npm` or `yarn`<br/>
