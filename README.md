@@ -12,7 +12,7 @@ The xor 512 bit encrypted notepad for now.
 - Password is not salted and is only hashed once
 - Can only take notes
 - No password check
-- Can easily be cracked if charater length is a large multiple of 16.
+- Can be cracked if charater length is a large multiple of 16.
 
 # How to setup
 Install either `npm` or `yarn`<br/>
