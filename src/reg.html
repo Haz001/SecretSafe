@@ -3,16 +3,19 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Login</title>
+        <title>Register</title>
         <link rel="stylesheet" href="css/master.css">
     </head>
     <body>
         <div class="logBox">
         <h1>SecterSafe</h1>
-        Welcome<br/>
-        <output name="result">User</output><br/>
+        <h2>Register</h2>
+        User:
+        <input name="result"/><br/>
         Password:<br/>
         <input type="password" placeholder="Password..." id="password" value="">
+        Retype Password:<br/>
+        <input type="password" placeholder="Password..." id="repassword" value="">
         <br/>
         <button onclick="login_btn()" type="button" name="button">Login</button>
         </div>
@@ -23,24 +26,21 @@
         var fs = require('fs');
         var os = require('os');
 
-        try {
-            var passwordH = fs.readFileSync("passwd.txt");
-        } catch (e) {
-            var passwordH ="";
-        } finally {
-            console.log("Password Hash: '"+passwordH+"'");
-        }
+
 
         var loginId = os.userInfo().username;
         document.getElementsByName('result')[0].value = loginId;
         function login_btn(){
             var password = document.getElementById("password").value;
+            var password2 = document.getElementById("repassword").value
+            if(password == password2){
+              var result = reg(password);
 
-            var result = login(password);
-
-            if(result == true){
-                window.location = "main.html"
+              if(result == true){
+                  window.location = "main.html"
+              }
             }
+
         }
     </script>
 </html>

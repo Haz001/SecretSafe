@@ -131,6 +131,7 @@ class hash{
         return binHash;
     }
     constructor(pass,type,other) {
+        var con = new converter();
         console.log(type)
         if (type == 0){
             this.key = this.hash(pass,"",1);
@@ -141,7 +142,7 @@ class hash{
             var times = parseInt(other["times"])
             console.log("salt: "+salt+"\ntimes:"+times.toString())
             this.key = this.hash(pass,salt,times)
-            this.key = this.hash(pass,salt,times*10)
+            this.hashed = con.boolToHex(this.hash(pass,salt,times*10))
         }
 
     }
@@ -238,12 +239,21 @@ class keytransfer{
 }
 function login(password){
     var x = keymake(password)
-    console.log(x)
-    
-    var keyt = new keytransfer();
-    keyt.set( x);
-    //console.log("done: "+hash)
-    return true;
+
+    var y = fs.readFileSync("account",{ encoding: 'ascii' }).toString();
+    console.log(y)
+    var z = y.split(";")[0];
+    var passh = z.split(":")[1];
+    console.log(passh);
+    console.log(x[1])
+    if (x[1] == passh){
+      var keyt = new keytransfer();
+      keyt.set( x[0]);
+      //console.log("done: "+hash)
+      return true;
+    }
+
+
 }
 function keymake(password){
     var salts = "";
@@ -251,19 +261,29 @@ function keymake(password){
     var saltlst = salts.split(" ")
     var key = new Array();
     var h = new hash(password,0)
+
     for (var i = 0; i < saltlst.length;i++){
-
         if(i%2 == 0){
-
             h = new hash(password,1,{"salt":saltlst[i],"times":10});
-
         }else{
             h = new hash(password,1,{"salt":saltlst[i],"times":10});
         }
         key = key.concat(h.key)
-
     }
-    return key;
-
-
+    return [key,h.hashed];
+}
+function reg(password){
+  var x = keymake(password)
+  var data = "";
+  data += "pwdh:"+x[1]+";";
+  fs.writeFile("account",data, function(err) {
+      if(err) {
+          return console.log(err);
+      }
+      //console.log("The file was saved!");
+  });
+  var keyt = new keytransfer();
+  keyt.set( x[0]);
+  //console.log("done: "+hash)
+  return true;
 }

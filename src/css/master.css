@@ -1,7 +1,7 @@
 .logBox{
     margin-left: auto;
     margin-right: auto;
-    width:500px;
+    width:400px;
     display: block;
     border-style:solid;
     border-radius: 25px;
@@ -47,18 +47,20 @@
 .logBox input{
     margin-left: auto;
     margin-right: auto;
-    width: 300px;
+    width: 100px;
     display: block;
     padding: 10px;
     border-color: #aaaaaa;
 
     border-style: none none solid none;
-    transition: border-color 1s;
+    transition: border-color 1s, width 0.5s;
 }
 .logBox input:hover{
     border-color: #00f8f8;
+    width: 300px;
     border-style: none none solid none;
 }
 .logBox input:focus{
+  width: 300px;
     border-color: #00f8f8;
 }

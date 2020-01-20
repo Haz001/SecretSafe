@@ -6,7 +6,7 @@
     "scripts": {
         "start": "electron .",
         "build": "electron-builder",
-        "buildwin":"electron-builder --win"
+        "buildwin": "electron-builder --win"
     },
     "build": {
         "appId": "com.secretsafe.app",
@@ -26,12 +26,12 @@
     "repository": "https://github.com/Haz001/SecretSafe.git",
     "author": "Harry <master@hazonline.co.uk>",
     "license": "MIT",
-    "devDependencies":{
+    "devDependencies": {
         "electron": "^7.1.2",
         "electron-builder": "^21.2.0"
     },
     "dependencies": {
-
+        "@trodi/electron-splashscreen": "^1.0.0",
         "jssha": "^2.3.1"
     }
 }
