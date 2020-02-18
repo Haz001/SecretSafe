@@ -21,9 +21,10 @@ The xor 32768 bit encrypted notepad for now.
 - [ ] Make UI inside app
 - [ ] Make password Genorator
 - [ ] Make better setup page
+- [ ] Make binary encrypted file storage to reduce encrypted file storage size
 - [ ] Make Icon
 - [ ] Make cool download page
-
+- [ ] Add Screenshots soon
 
 # How to setup
 Install either `npm` or `yarn`<br/>
