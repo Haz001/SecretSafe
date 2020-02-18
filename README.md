@@ -24,6 +24,7 @@ The xor 32768 bit encrypted notepad for now.
 - [ ] Make binary encrypted file storage to reduce encrypted file storage size
 - [ ] Make Icon
 - [ ] Make cool download page
+- [ ] Clean code and optimize
 - [ ] Add Screenshots soon
 
 # How to setup
